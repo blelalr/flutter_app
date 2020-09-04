@@ -33,12 +33,14 @@ dependencies:
   google_fonts: ^1.1.0
   firebase_core: 0.5.0
   firebase_auth: ^0.18.0+1
+  firebase_database: 4.0.0
+  firestore_ui: 1.11.0
+  cloud_firestore : 0.14.0+2
   google_sign_in: ^4.5.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

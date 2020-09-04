@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app/firebase/UserAuth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,7 +16,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
+    return new ListView(children: [
+      Padding(
+        padding:
+            const EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
         child: Center(
           child: Column(
             children: [
@@ -50,28 +52,27 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text('註冊'),
                 onPressed: _btnOnRegisterClick,
               ),
-              Row(children: [
-                IconButton(
-                    iconSize: 30,
-                    icon: FaIcon(FontAwesomeIcons.facebook),
-                    onPressed: null
-                ),
-                IconButton(
-                    iconSize: 30,
-                    icon: FaIcon(FontAwesomeIcons.google),
-                    onPressed: null
-                ),
-                IconButton(
-                    iconSize: 30,
-                    icon: FaIcon(FontAwesomeIcons.apple),
-                    onPressed: null
-                )],
+              Row(
+                children: [
+                  IconButton(
+                      iconSize: 30,
+                      icon: FaIcon(FontAwesomeIcons.facebook),
+                      onPressed: null),
+                  IconButton(
+                      iconSize: 30,
+                      icon: FaIcon(FontAwesomeIcons.google),
+                      onPressed: null),
+                  IconButton(
+                      iconSize: 30,
+                      icon: FaIcon(FontAwesomeIcons.apple),
+                      onPressed: null)
+                ],
               )
             ],
           ),
         ),
-    );
-
+      ),
+    ]);
   }
 
   void _btnOnRegisterClick() {
@@ -82,5 +83,4 @@ class _LoginPageState extends State<LoginPage> {
     print(" Email:  $email \n Password:  $password");
     UserAuth.signInWithEmailAndPassword(email, password);
   }
-
 }
