@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/page/CreateAccountPage.dart';
 import 'package:flutter_app/page/HomePage.dart';
 import 'package:flutter_app/page/LoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserAuth extends StatefulWidget {
@@ -48,7 +51,6 @@ class _UserAuthState extends State<UserAuth> {
 
   @override
   Widget build(BuildContext context) {
-
     // Show error message if initialization failed
     if (_error) {
       return somethingWentWrong();
@@ -70,16 +72,38 @@ class _UserAuthState extends State<UserAuth> {
           _user = snapshot.data;
           if (_user == null) {
             return new Scaffold(body: SafeArea(child: LoginPage()));
+          } else if (true) {
+            return SafeArea(
+                child: new Scaffold(
+              appBar: new AppBar(
+                  actions: <Widget> [
+                    IconButton(
+                        icon: FaIcon(FontAwesomeIcons.signOutAlt),
+                        onPressed: () {
+                          signOut();
+                        })
+                  ],
+                  title: Text(
+                'Flutter App',
+                style: GoogleFonts.playball(fontSize: 30),
+              )),
+              body: HomePage(),
+            ));
+          } else {
+            return SafeArea(
+                child: new Scaffold(
+              appBar: new AppBar(
+                  title: Text(
+                'Flutter App',
+                style: GoogleFonts.playball(fontSize: 30),
+              )),
+              body: CreateAccountPage(),
+            ));
           }
-          return SafeArea(child: new Scaffold(
-            appBar: new AppBar(title: Text(
-              'Flutter App',
-              style: GoogleFonts.playball(fontSize: 30),
-            )),
-            body: HomePage(),
-              ));
         } else {
-          return Scaffold( body: SafeArea(child: Center(child: CircularProgressIndicator())));
+          return Scaffold(
+              body:
+                  SafeArea(child: Center(child: CircularProgressIndicator())));
         }
       },
     );
@@ -87,6 +111,7 @@ class _UserAuthState extends State<UserAuth> {
 
   Widget somethingWentWrong() {
     print("SomethingWentWrong");
+    return Container();
   }
 
   Widget loading() {
@@ -94,6 +119,11 @@ class _UserAuthState extends State<UserAuth> {
     return Scaffold(
         body: SafeArea(child: Center(child: CircularProgressIndicator())));
   }
+
+  void btnOnSignOutClick() {
+    _UserAuthState().signOut();
+  }
+
 
   Future<void> signOut() async {
     try {
@@ -141,3 +171,23 @@ class _UserAuthState extends State<UserAuth> {
     }
   }
 }
+
+// Future<void> isUserAccountExist(User user) async {
+//   try {
+//     await FirebaseFirestore.instance
+//         .collection('Users')
+//         .doc(user.uid)
+//         .get()
+//         .then((DocumentSnapshot documentSnapshot) {
+//       if (documentSnapshot.exists) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     });
+//   } on FirebaseException catch (e) {
+//     print(e);
+//   } catch(e) {
+//     print(e.toString());
+//   }
+// }
