@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator())));;
         }
 
         return new ListView(

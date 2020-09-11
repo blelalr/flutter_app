@@ -80,7 +80,6 @@ class _UserAuthState extends State<UserAuth> {
   }
 
   Widget loading() {
-    print("Loading");
     return Scaffold(
         body: SafeArea(child: Center(child: CircularProgressIndicator())));
   }
@@ -138,7 +137,7 @@ class _UserAuthState extends State<UserAuth> {
 
   Stream<DocumentSnapshot> isUserExist()  {
     try {
-       return FirebaseFirestore.instance
+      return FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser.uid)
            .snapshots();
@@ -156,9 +155,10 @@ class _UserAuthState extends State<UserAuth> {
     return StreamBuilder<DocumentSnapshot>(
         stream: isUserExist(),
         builder: (context, docSnapshot) {
-          if (docSnapshot.connectionState == ConnectionState.active) {
+          print("Esther : ${docSnapshot.connectionState}");
+          if (docSnapshot != null && docSnapshot.connectionState == ConnectionState.active) {
             print("checkAccountExist : ${docSnapshot.data.exists}");
-            if(docSnapshot.data.exists) {
+            if(docSnapshot.data!= null && docSnapshot.data.exists) {
               return HomePage();
             } else {
               print("checkAccountExist : notExist");

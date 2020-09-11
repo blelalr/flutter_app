@@ -24,38 +24,31 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               )),
           body: createAccountPage(),
         ));
-
-    // return Text("Here goes Create Account Page");
   }
 
   Widget createAccountPage() {
-    return StreamBuilder(
-        stream: UserAuth().createState().isUserExist(),
-        builder: (context, snapshot) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
-            child: Column(
-                children: [
-                  Text("使用者名稱:"),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: "英數混合字元",
-                    ),
-                    keyboardType: TextInputType.name,
-                    controller: _etUserId,)
-                  ,
-                  OutlineButton(
-                      child: Text('建立'),
-                      onPressed: () {
-                        setState(() {
-                          return _btnOnCreateUserClick(_etUserId.text);
-                        });
-                      }
-                  ),
-                ]),
-          );
-        });
-
+    return  Padding(
+      padding: const EdgeInsets.only(left: 20, top: 40, right: 20, bottom: 20),
+      child: Column(
+          children: [
+            Text("使用者名稱:"),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "英數混合字元",
+              ),
+              keyboardType: TextInputType.name,
+              controller: _etUserId,)
+            ,
+            OutlineButton(
+                child: Text('建立'),
+                onPressed: () {
+                  setState(() {
+                    return _btnOnCreateUserClick(_etUserId.text);
+                  });
+                }
+            ),
+          ]),
+    );
   }
 
   Future<void> _btnOnCreateUserClick(String userName) async {
