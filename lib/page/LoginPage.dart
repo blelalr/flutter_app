@@ -27,19 +27,22 @@ class _LoginPageState extends State<LoginPage> {
                 'Flutter App',
                 style: GoogleFonts.playball(fontSize: 55),
               ),
-              TextField(
+
+                TextField(
                 decoration: InputDecoration(
                   labelText: '帳號',
                 ),
                 keyboardType: TextInputType.emailAddress,
                 controller: _etEmailController,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: '密碼',
+
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: '密碼',
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+                  controller: _etPasswordController,
                 ),
-                controller: _etPasswordController,
-              ),
               OutlineButton(
                   child: Text('登入'),
                   onPressed: () {
@@ -50,8 +53,11 @@ class _LoginPageState extends State<LoginPage> {
                   }),
               OutlineButton(
                 child: Text('註冊'),
-                onPressed: _btnOnRegisterClick,
-              ),
+                onPressed: () {
+                    setState(() {
+                      _btnOnRegisterClick(_etEmailController.text, _etPasswordController.text);
+                    });
+              }),
               Row(
                 children: [
                   IconButton(
@@ -75,12 +81,14 @@ class _LoginPageState extends State<LoginPage> {
     ]);
   }
 
-  void _btnOnRegisterClick() {
+  void _btnOnRegisterClick(String email, String password) {
     print(" Register Click");
+    UserAuth().createState().registerWithEmailAndPassword(email, password);
+
   }
 
   void _btnOnLoginClick(String email, String password) {
     print(" Email:  $email \n Password:  $password");
-    UserAuth.signInWithEmailAndPassword(email, password);
+    UserAuth().createState().signInWithEmailAndPassword(email, password);
   }
 }

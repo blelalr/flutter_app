@@ -6,20 +6,10 @@ import 'package:flutter_app/page/CreateAccountPage.dart';
 import 'package:flutter_app/page/HomePage.dart';
 import 'package:flutter_app/page/LoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class UserAuth extends StatefulWidget {
   @override
   _UserAuthState createState() => _UserAuthState();
-
-  static void signInWithEmailAndPassword(String email, String password) {
-    _UserAuthState().signInWithEmailAndPassword(email, password);
-  }
-
-  static void signOut() {
-    _UserAuthState().signOut();
-  }
 }
 
 class _UserAuthState extends State<UserAuth> {
@@ -72,33 +62,8 @@ class _UserAuthState extends State<UserAuth> {
           _user = snapshot.data;
           if (_user == null) {
             return new Scaffold(body: SafeArea(child: LoginPage()));
-          } else if (true) {
-            return SafeArea(
-                child: new Scaffold(
-              appBar: new AppBar(
-                  actions: <Widget> [
-                    IconButton(
-                        icon: FaIcon(FontAwesomeIcons.signOutAlt),
-                        onPressed: () {
-                          signOut();
-                        })
-                  ],
-                  title: Text(
-                'Flutter App',
-                style: GoogleFonts.playball(fontSize: 30),
-              )),
-              body: HomePage(),
-            ));
           } else {
-            return SafeArea(
-                child: new Scaffold(
-              appBar: new AppBar(
-                  title: Text(
-                'Flutter App',
-                style: GoogleFonts.playball(fontSize: 30),
-              )),
-              body: CreateAccountPage(),
-            ));
+            return checkAccountExist();
           }
         } else {
           return Scaffold(
@@ -170,24 +135,40 @@ class _UserAuthState extends State<UserAuth> {
       print(e.toString());
     }
   }
+
+  Stream<DocumentSnapshot> isUserExist()  {
+    try {
+       return FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser.uid)
+           .snapshots();
+
+    } on FirebaseException catch (e) {
+      print(e);
+      return null;
+    } catch(e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Widget checkAccountExist() {
+    return StreamBuilder<DocumentSnapshot>(
+        stream: isUserExist(),
+        builder: (context, docSnapshot) {
+          if (docSnapshot.connectionState == ConnectionState.active) {
+            print("checkAccountExist : ${docSnapshot.data.exists}");
+            if(docSnapshot.data.exists) {
+              return HomePage();
+            } else {
+              print("checkAccountExist : notExist");
+              return CreateAccountPage();
+            }
+          } else {
+            print("checkAccountExist : ${docSnapshot.connectionState}");
+            return Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator())));
+          }
+        });
+  }
 }
 
-// Future<void> isUserAccountExist(User user) async {
-//   try {
-//     await FirebaseFirestore.instance
-//         .collection('Users')
-//         .doc(user.uid)
-//         .get()
-//         .then((DocumentSnapshot documentSnapshot) {
-//       if (documentSnapshot.exists) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     });
-//   } on FirebaseException catch (e) {
-//     print(e);
-//   } catch(e) {
-//     print(e.toString());
-//   }
-// }
