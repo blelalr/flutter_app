@@ -16,13 +16,13 @@ class Post {
   factory Post.fromDocument(DocumentSnapshot doc) {
     return Post(
         nodeId : doc.id,
-        authorUID : doc.get("authorUID"),
-        description: doc.get("description"),
-        email : doc.get("email"),
-        imagePath : doc.get("imagePath"),
-        imageURL : doc.get("imageURL"),
-        postDate : doc.get("postDate"),
-        postDateReverse : doc.get("postDateReverse")
+        authorUID : doc.data()['authorUID'],
+        description: doc.data()['description'],
+        email : doc.data()['email'],
+        imagePath : doc.data()['imagePath'],
+        imageURL : doc.data()['imageURL'],
+        postDate : doc.data()['postDate'],
+        postDateReverse : doc.data()['postDateReverse']
     );
     
   }

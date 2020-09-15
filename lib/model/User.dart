@@ -20,11 +20,11 @@ class User {
   factory User.fromDocument(DocumentSnapshot doc) {
     return User(
       id: doc.id,
-      email: doc.get('email'),
-      username: doc.get('username'),
-      url: doc.get('photoUrl'),
-      profileName: doc.get('displayName'),
-      bio: doc.get('bio'),
+      email: doc.data()['email'],
+      username: doc.data()['username'],
+      url: doc.data()['photoUrl'],
+      profileName: doc.data()['displayName'],
+      bio: doc.data()['bio'],
     );
   }
 }

@@ -52,19 +52,30 @@ class _HomePageState extends State<HomePage> {
           children: snapshot.data.docs.map((DocumentSnapshot document) {
             return new Container(child:
                 new Column(children: [
-                  new Image.network(
-                      document.data()['imageURL'],
-                      width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    fit:BoxFit.cover
-                  ),
-                  new Text(document.data()['email'])
+                  headerView(Post.fromDocument(document)),
+                  contentView(Post.fromDocument(document)),
+                  // footerView(Post.fromDocument(document)),
+
                 ],
                 )
             ) ;
           }).toList(),
         );
       },
+    );
+  }
+
+  Widget headerView(Post post) {
+
+    return Text(post.authorUID);
+  }
+
+  Widget contentView(Post post) {
+    return new Image.network(
+        post.imageURL,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.width*3/4,
+        fit:BoxFit.cover
     );
   }
 }
