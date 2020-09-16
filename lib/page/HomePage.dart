@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     pageController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -92,6 +92,6 @@ class _HomePageState extends State<HomePage> {
 
 
   onTapPageChange(int pageIndex) {
-    pageController.animateToPage(pageIndex, duration: Duration(milliseconds: 400), curve:Curves.bounceInOut);
+    pageController.jumpToPage(pageIndex);//.animateToPage(pageIndex, duration: Duration(milliseconds: 400), curve:Curves.fastOutSlowIn);
   }
 }

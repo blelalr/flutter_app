@@ -4,7 +4,7 @@ class User {
   final String id;
   final String profileName;
   final String username;
-  final String url;
+  final String photoUrl;
   final String email;
   final String bio;
 
@@ -12,7 +12,7 @@ class User {
     this.id,
     this.profileName,
     this.username,
-    this.url,
+    this.photoUrl,
     this.email,
     this.bio,
   });
@@ -22,7 +22,7 @@ class User {
       id: doc.id,
       email: doc.data()['email'],
       username: doc.data()['username'],
-      url: doc.data()['photoUrl'],
+      photoUrl: doc.data()['url'],
       profileName: doc.data()['displayName'],
       bio: doc.data()['bio'],
     );

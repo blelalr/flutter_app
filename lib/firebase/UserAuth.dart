@@ -15,7 +15,7 @@ class UserAuth extends StatefulWidget {
 class _UserAuthState extends State<UserAuth> {
   bool _initialized = false;
   bool _error = false;
-  User _user;
+  User user;
 
   // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
@@ -59,8 +59,8 @@ class _UserAuthState extends State<UserAuth> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
-          _user = snapshot.data;
-          if (_user == null) {
+          user = snapshot.data;
+          if (user == null) {
             return new Scaffold(body: SafeArea(child: LoginPage()));
           } else {
             return checkAccountExist();
@@ -139,7 +139,7 @@ class _UserAuthState extends State<UserAuth> {
     try {
       return FirebaseFirestore.instance
           .collection('Users')
-          .doc(FirebaseAuth.instance.currentUser.uid)
+          .doc(user.uid)
            .snapshots();
 
     } on FirebaseException catch (e) {
@@ -155,7 +155,7 @@ class _UserAuthState extends State<UserAuth> {
     return StreamBuilder<DocumentSnapshot>(
         stream: isUserExist(),
         builder: (context, docSnapshot) {
-          print("Esther : ${docSnapshot.connectionState}");
+          print("checkAccountExist connectionState: ${docSnapshot.connectionState}");
           if (docSnapshot != null && docSnapshot.connectionState == ConnectionState.active) {
             print("checkAccountExist : ${docSnapshot.data.exists}");
             if(docSnapshot.data!= null && docSnapshot.data.exists) {
@@ -165,7 +165,7 @@ class _UserAuthState extends State<UserAuth> {
               return CreateAccountPage();
             }
           } else {
-            print("checkAccountExist : ${docSnapshot.connectionState}");
+            print("checkAccountExist connectionState: ${docSnapshot.connectionState}");
             return Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator())));
           }
         });

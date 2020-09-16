@@ -7,11 +7,12 @@ class Post {
   final String email;
   final String imagePath;
   final String imageURL;
+  final List like;
   final String postDate;
   final String postDateReverse;
 
   Post({this.nodeId, this.authorUID, this.description,this.email, this.imagePath,
-      this.imageURL, this.postDate, this.postDateReverse});
+      this.imageURL, this.like, this.postDate, this.postDateReverse});
 
   factory Post.fromDocument(DocumentSnapshot doc) {
     return Post(
@@ -21,6 +22,7 @@ class Post {
         email : doc.data()['email'],
         imagePath : doc.data()['imagePath'],
         imageURL : doc.data()['imageURL'],
+        like: doc.data()['like'],
         postDate : doc.data()['postDate'],
         postDateReverse : doc.data()['postDateReverse']
     );

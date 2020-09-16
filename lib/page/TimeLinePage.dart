@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_app/model/Post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/widgets/PostWidget.dart';
 
 class TimeLinePage extends StatefulWidget {
   @override
@@ -28,32 +29,11 @@ class _TimeLinePageState extends State<TimeLinePage> {
         }
         return new ListView(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
-            return new Container(child:
-            new Column(children: [
-              headerView(Post.fromDocument(document)),
-              contentView(Post.fromDocument(document)),
-              // footerView(Post.fromDocument(document)),
-
-            ],
-            )
-            ) ;
+            return new Container(child: PostWidget(post: Post.fromDocument(document)));
           }).toList(),
         );
       },
     );
   }
 
-  Widget headerView(Post post) {
-
-    return Text(post.authorUID);
-  }
-
-  Widget contentView(Post post) {
-    return new Image.network(
-        post.imageURL,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.width*3/4,
-        fit:BoxFit.cover
-    );
-  }
 }
