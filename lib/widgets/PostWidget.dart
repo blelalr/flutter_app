@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseUser;
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/Post.dart';
 import 'package:flutter_app/model/User.dart';
+import 'package:flutter_app/widgets/PostTileWidget.dart';
 
 class PostWidget extends StatefulWidget {
   final Post post;
@@ -12,6 +12,7 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
+
   @override
   Widget build(BuildContext context) {
     return new Column(children: [
@@ -40,13 +41,7 @@ class _PostWidgetState extends State<PostWidget> {
   }
 
   Widget footerView(Post post) {
-    return new Container(
-        child: buildPostFooter(post),
-        alignment: Alignment.topLeft,
-        width: MediaQuery.of(context).size.width,
-        height: 100
-    );
-
+    return PostTile(post: post);
   }
 
   Widget buildPostHeader(String authorUID) {
@@ -80,21 +75,5 @@ class _PostWidgetState extends State<PostWidget> {
     );
   }
 
-  Widget buildPostFooter(Post post) {
-    return Row(children: [
-    (post.like.contains(FirebaseUser.FirebaseAuth.instance.currentUser.uid)
-        ? IconButton(icon: Icon(Icons.favorite), onPressed: () { unLikeThePost(post.nodeId);})
-        : IconButton(icon: Icon(Icons.favorite_border), onPressed: () { likeThePost(post.nodeId);})),
-      IconButton(icon: Icon(Icons.chat_bubble_outline)),
-    ]);
-  }
-
-  void unLikeThePost(String nodeId) {
-
-  }
-
-  void likeThePost(String nodeId) {
-
-  }
 }
 
