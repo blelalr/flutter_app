@@ -46,17 +46,16 @@ class _PostWidgetState extends State<PostWidget> {
 
   Widget buildPostHeader(String authorUID) {
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(authorUID).get(),
-      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: users.doc(authorUID).snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> docSnapshot) {
 
-        if (snapshot.hasError) {
+        if (docSnapshot.hasError) {
           return Text("Something went wrong");
         }
 
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null) {
-          User user = User.fromDocument(snapshot.data);
+    if (docSnapshot != null && docSnapshot.connectionState == ConnectionState.active) {
+          User user = User.fromDocument(docSnapshot.data);
           return Row(children: [
             Padding(
                 padding: const EdgeInsets.only(

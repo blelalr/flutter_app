@@ -17,8 +17,8 @@ class _TimeLinePageState extends State<TimeLinePage> {
 
   Widget buildTimeLinePage() {
     CollectionReference posts = FirebaseFirestore.instance.collection('Posts');
-    return StreamBuilder<QuerySnapshot>(
-      stream: posts.snapshots(),
+    return FutureBuilder<QuerySnapshot>(
+      future: posts.get(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');

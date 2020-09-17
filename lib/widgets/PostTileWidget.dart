@@ -15,6 +15,7 @@ class _PostTailState extends State<PostTile> {
   @override
   void initState() {
     // TODO: implement initState
+    if(widget.post.like.length == 0) _isLike = false;
     _isLike = widget.post.like.contains(FirebaseUser.FirebaseAuth.instance.currentUser.uid);
     super.initState();
   }
@@ -39,14 +40,18 @@ class _PostTailState extends State<PostTile> {
   void unLikeThePost(String nodeId) {
     setState(() {
       _isLike = false;
-
     });
+
+    FirebaseFirestore.instance.collection('Posts').doc(nodeId)
+        .update({'like' : FieldValue.arrayRemove([FirebaseUser.FirebaseAuth.instance.currentUser.uid])});
   }
 
   void likeThePost(String nodeId) {
     setState(() {
       _isLike = true;
     });
+    FirebaseFirestore.instance.collection('Posts').doc(nodeId)
+        .update({'like' : FieldValue.arrayUnion([FirebaseUser.FirebaseAuth.instance.currentUser.uid])});
   }
 
 }
