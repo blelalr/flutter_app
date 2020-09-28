@@ -36,7 +36,7 @@ class _PostWidgetState extends State<PostWidget> {
           ]);
         }
 
-        return Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator())));
+        return Container(child: Center(child: CircularProgressIndicator()));
       },
     );
   }
