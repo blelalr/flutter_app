@@ -28,42 +28,52 @@ class _SearchPageState extends State<SearchPage> {
             itemCount: tempArray.length,
             itemBuilder: (BuildContext context, int index) {
               if (tempArray[index] == "U") {
-                return unreadItemView(context);
+                return unreadItemView(context, index);
               } else {
-                return seenItemView(context);
+                return seenItemView(context, index);
               }
             }));
   }
 
-  Widget unreadItemView(BuildContext context) {
-    return Align(
-        alignment: Alignment.topLeft,
-        heightFactor: 0.5,
-        child: ClipPath(
-            clipper: MyClipper(),
-            child: Container(
-                height: 180.0,
-                width: MediaQuery.of(context).size.width,
-                // color: Colors.blue,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(begin: Alignment.topRight, stops: [
-                  0.5,
-                  1
-                ], colors: [
-                  Color(int.parse('FFF3F6FA', radix: 16)),
-                  Color(int.parse('FFFFFFFF', radix: 16)),
-                ])))));
+  Widget unreadItemView(BuildContext context, int index) {
+    return GestureDetector(
+      onTap: () => Scaffold
+          .of(context)
+          .showSnackBar(SnackBar(content: Text(index.toString()))),
+      child: Align(
+          alignment: Alignment.topLeft,
+          heightFactor: 0.5,
+          child: ClipPath(
+              clipper: MyClipper(),
+              child: Container(
+                  height: 180.0,
+                  width: MediaQuery.of(context).size.width,
+                  // color: Colors.blue,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(begin: Alignment.topRight, stops: [
+                    0.5,
+                    1
+                  ], colors: [
+                    Color(int.parse('FFF3F6FA', radix: 16)),
+                    Color(int.parse('FFFFFFFF', radix: 16)),
+                  ]))))),
+    );
   }
 
-  Widget seenItemView(BuildContext context) {
-    return Align(
-        alignment: Alignment.topLeft,
-        heightFactor: 0.58,
-        child: new ClipPath(
-            clipper: MyClipper(),
-            child: Container(
-                height: 180.0,
-                color: Color(int.parse('FFF3F6FA', radix: 16)))));
+  Widget seenItemView(BuildContext context, int index) {
+    return GestureDetector(
+      onTap: () => Scaffold
+          .of(context)
+          .showSnackBar(SnackBar(content: Text(index.toString()))),
+      child: Align(
+          alignment: Alignment.topLeft,
+          heightFactor: 0.58,
+          child: new ClipPath(
+              clipper: MyClipper(),
+              child: Container(
+                  height: 180.0,
+                  color: Color(int.parse('FFF3F6FA', radix: 16))))),
+    );
   }
 }
 

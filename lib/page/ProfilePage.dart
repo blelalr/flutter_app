@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/Post.dart';
-import 'package:flutter_app/widgets/PostWidget.dart';
 import 'package:flutter_app/widgets/TextWidget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -31,8 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        child: Wrap(
-              direction: Axis.horizontal,
+        child: ListView(
               children: [
                 Padding(
                 padding: EdgeInsets.all(20),
@@ -81,9 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         top: 0, left: 20, right: 0, bottom: 20),
                     child: TextWidget("我是查理布朗", FontWeight.normal, 16)
                 ),
-                Container(
-                    color: Colors.white,
-                    child: new GridView.builder(
+                 GridView.builder(
                         shrinkWrap: true,
                         scrollDirection:Axis.vertical,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1.0),
@@ -92,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           return Image.network('https://firebasestorage.googleapis.com/v0/b/instogram-12296.appspot.com/o/photos%2F-Ki9XbcRcZgFkhntqjAp.jpg?alt=media&token=0452e9c6-c1e5-4279-9e06-a8aff323d2b7',
                           fit: BoxFit.cover);
 
-                        }))
+                        })
               ],
             ));
   }
