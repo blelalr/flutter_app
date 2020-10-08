@@ -46,6 +46,7 @@ class _SearchPageState extends State<SearchPage> {
           child: ClipPath(
               clipper: MyClipper(),
               child: Container(
+                  child: Center(child: Text(index.toString())),
                   height: 180.0,
                   width: MediaQuery.of(context).size.width,
                   // color: Colors.blue,
@@ -71,6 +72,7 @@ class _SearchPageState extends State<SearchPage> {
           child: new ClipPath(
               clipper: MyClipper(),
               child: Container(
+                  child: Center(child: Text(index.toString())),
                   height: 180.0,
                   color: Color(int.parse('FFF3F6FA', radix: 16))))),
     );

@@ -22,7 +22,6 @@ class _ProfilePageState extends State<ProfilePage> {
     "G",
     "H",
     "I",
-    "J",
   ];
 
   @override
@@ -30,10 +29,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return Container(
         color: Colors.white,
         child: ListView(
-              children: [
-                Padding(
+          children: [
+            Padding(
                 padding: EdgeInsets.all(20),
-                child:Container(
+                child: Container(
                   child: Row(
                     children: [
                       ClipOval(
@@ -46,20 +45,20 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Expanded(
                           child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 0, left: 30, right: 0, bottom: 0),
-                            child: Column(children: [
-                              TextWidget("908", FontWeight.normal, 16),
-                              TextWidget("貼文", FontWeight.normal, 16),
-                            ]),
-                          )),
+                        padding: EdgeInsets.only(
+                            top: 0, left: 30, right: 0, bottom: 0),
+                        child: Column(children: [
+                          TextWidget("908", FontWeight.normal, 16),
+                          TextWidget("貼文", FontWeight.normal, 16),
+                        ]),
+                      )),
                       Expanded(
                           child: Column(
-                            children: [
-                              TextWidget("167", FontWeight.normal, 16),
-                              TextWidget("粉絲", FontWeight.normal, 16),
-                            ],
-                          )),
+                        children: [
+                          TextWidget("167", FontWeight.normal, 16),
+                          TextWidget("粉絲", FontWeight.normal, 16),
+                        ],
+                      )),
                       Expanded(
                           child: Padding(
                               padding: EdgeInsets.only(
@@ -73,22 +72,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 )),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: 0, left: 20, right: 0, bottom: 20),
-                    child: TextWidget("我是查理布朗", FontWeight.normal, 16)
-                ),
-                 GridView.builder(
-                        shrinkWrap: true,
-                        scrollDirection:Axis.vertical,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1.0),
-                        itemCount: tempArray.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Image.network('https://firebasestorage.googleapis.com/v0/b/instogram-12296.appspot.com/o/photos%2F-Ki9XbcRcZgFkhntqjAp.jpg?alt=media&token=0452e9c6-c1e5-4279-9e06-a8aff323d2b7',
-                          fit: BoxFit.cover);
-
-                        })
-              ],
-            ));
+            Padding(
+                padding:
+                    EdgeInsets.only(top: 0, left: 20, right: 0, bottom: 20),
+                child: TextWidget("我是查理布朗", FontWeight.normal, 16)),
+            GridView.builder(
+                shrinkWrap: true,
+                physics: new NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, childAspectRatio: 1.0),
+                itemCount: tempArray.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/instogram-12296.appspot.com/o/photos%2F-Ki9XbcRcZgFkhntqjAp.jpg?alt=media&token=0452e9c6-c1e5-4279-9e06-a8aff323d2b7',
+                      fit: BoxFit.cover);
+                })
+          ],
+        ));
   }
 }
