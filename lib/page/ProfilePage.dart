@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Padding(
                 padding:
-                    EdgeInsets.only(top: 20, left: 20, right: 0, bottom: 10),
+                    EdgeInsets.only(top: 10, left: 20, right: 0, bottom: 10),
                 child: Container(
                   child: Row(
                     children: [
@@ -46,42 +46,49 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Expanded(
                           child: Container(
-                        child: Column(
-                          children: [
-                            Row(children: [
-                              Expanded(
-                                  child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 0, left: 20, right: 0, bottom: 2),
-                                child: Column(children: [
-                                  TextWidget("908", FontWeight.normal, 16),
-                                  TextWidget("貼文", FontWeight.normal, 16),
-                                ]),
-                              )),
-                              Expanded(
-                                  child: Column(
-                                children: [
-                                  TextWidget("167", FontWeight.normal, 16),
-                                  TextWidget("粉絲", FontWeight.normal, 16),
-                                ],
-                              )),
-                              Expanded(
-                                  child: Padding(
-                                      padding: EdgeInsets.only(top: 0,left: 0,right: 20, bottom: 0),
-                                      child: Column(
-                                        children: [
-                                          TextWidget(
-                                              "575", FontWeight.normal, 16),
-                                          TextWidget(
-                                              "追蹤中", FontWeight.normal, 16),
-                                        ],
-                                      ))),
-                            ]),
-                            OutlineButton(
-                                    onPressed: updateProfile(),
-                                    child: TextWidget(
-                                        "    更新個人資料    ", FontWeight.normal, 16))
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(top:20),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Expanded(
+                                    child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 0, left: 20, right: 0, bottom: 2),
+                                  child: Column(children: [
+                                    TextWidget("908", FontWeight.normal, 14),
+                                    TextWidget("貼文", FontWeight.normal, 14),
+                                  ]),
+                                )),
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    TextWidget("167", FontWeight.normal, 14),
+                                    TextWidget("粉絲", FontWeight.normal, 14),
+                                  ],
+                                )),
+                                Expanded(
+                                    child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 0,
+                                            left: 0,
+                                            right: 20,
+                                            bottom: 0),
+                                        child: Column(
+                                          children: [
+                                            TextWidget(
+                                                "575", FontWeight.normal, 14),
+                                            TextWidget(
+                                                "追蹤中", FontWeight.normal, 14),
+                                          ],
+                                        ))),
+                              ]),
+                              OutlineButton(
+                                  onPressed: updateProfile(),
+                                  child: TextWidget(
+                                      "          更新個人資料          ", FontWeight.normal, 12))
+                            ],
+                          ),
                         ),
                       ))
                     ],
